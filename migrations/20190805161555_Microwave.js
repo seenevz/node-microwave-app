@@ -1,6 +1,6 @@
 exports.up = function(knex, Promise) {
-  knex.schema.createTable("microwaves", function(table) {
-    table.increments();
+  return knex.schema.createTable("microwaves", function(table) {
+    table.increments().primary();
     table.string("human_identifier");
     table.string("status");
     table.timestamps();
@@ -8,5 +8,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  knex.schema.dropTable("microwaves");
+  return knex.schema.dropTable("microwaves");
 };

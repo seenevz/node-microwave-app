@@ -1,13 +1,13 @@
 exports.up = function(knex, Promise) {
-  knex.schema.createTable("timers", function(table) {
-    table.increments();
+  return knex.schema.createTable("timers", function(table) {
+    table.increments().primary();
     table.integer("duration");
-    table.integer("user_id");
-    table.integer("microwave_id");
+    table.integer("user_id").references("users.id");
+    table.integer("microwave_id").references("microwaves.id");
     table.timestamps();
   });
 };
 
 exports.down = function(knex, Promise) {
-  knex.schema.dropTable("timers");
+  return knex.schema.dropTable("timers");
 };

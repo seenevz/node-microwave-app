@@ -2,7 +2,7 @@ class API {
   // Resolves the API requests that have been intercepted
   static exec(resp) {
     const parts = API.urlParts;
-    console.log("Executing call with following request => ", parts);
+    console.log("Executing call for the following request => ", parts);
 
     if (parts[0] == "api") {
       if (parts[1] == "user") {

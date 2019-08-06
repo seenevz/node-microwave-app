@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const API = require("./API.js");
+const API = require("../app/API");
 
 const requestHandler = (request, response) => {
   console.log(request.url);
