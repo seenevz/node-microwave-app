@@ -1,16 +1,50 @@
-class API {
-  // Resolves the API requests that have been intercepted
-  static exec(resp) {
-    const parts = API.urlParts;
-    console.log("Executing call for the following request => ", parts);
+const User = require("./models/user");
+const Microwave = require("./models/microwave");
 
-    if (parts[0] == "api") {
-      if (parts[1] == "user") {
-        console.log("insert request handler for =>", parts[2]);
-      } else if (parts[1] == "microwave") {
-        console.log("insert request handler for =>", parts[2]);
-        resp.end("Responding from microwave!");
+class API {
+  // Resolves the get API requests that have been intercepted
+  static getExec(req, resp) {
+    const parts = API.urlParts;
+    console.log("Executing call for the following get request => ", parts);
+
+    if (parts[1] === "users") {
+      if (!!parts[2]) {
+        User.userById(parts[2]).then(user => {
+          resp.setHeader("Content-Type", API.type);
+          resp.end(JSON.stringify(user));
+          return;
+        });
+      } else {
+        User.allUsers().then(users => {
+          resp.setHeader("Content-Type", API.type);
+          resp.end(JSON.stringify(users));
+        });
       }
+    } else if (parts[1] === "microwaves") {
+      if (!!parts[2]) {
+        Microwave.microwaveById(parts[2]).then(Microwave => {
+          resp.setHeader("Content-Type", API.type);
+          resp.end(JSON.stringify(Microwave));
+          return;
+        });
+      } else {
+        Microwave.allMicrowaves().then(microwaves => {
+          resp.setHeader("Content-Type", API.type);
+          resp.end(JSON.stringify(microwaves));
+        });
+      }
+    }
+  }
+
+  // Resolves the post API requests that have been intercepted
+  static postExec(req, resp) {
+    const parts = API.urlParts;
+    console.log("Executing call for the following get request => ", parts);
+    switch (parts[1]) {
+      case "users":
+
+      default:
+        break;
     }
   }
 
@@ -33,5 +67,6 @@ class API {
 }
 
 API.urlParts = null;
+API.type = "application/json";
 
 module.exports = API;

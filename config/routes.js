@@ -27,7 +27,18 @@ const requestHandler = (request, response) => {
   }
   // Intercepts request and checks if its an API call
   if (API.catchAPIrequest(request.url)) {
-    response.end(API.exec(response), "utf-8");
+    // debugger;
+    switch (request.method) {
+      case "GET":
+        API.getExec(request, response);
+        break;
+      case "POST":
+        response.end(API.postExec(response), "utf-8");
+        break;
+      default:
+        response.end("That's not a valid method", "utf-8");
+        break;
+    }
   } else {
     fs.readFile(file, (error, content) => {
       // If it can't find the html page to serve, it will throw a 404
