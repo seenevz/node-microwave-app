@@ -23,7 +23,7 @@
   "homepage": "https://github.com/seenevz/node-microwave-app#readme",
   "dependencies": {
     "bookshelf": "^0.15.1",
-    "knex": "^0.17.6",
+    "knex": "^2.4.0",
     "pg": "^7.12.0"
   }
 }
